@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form action="" method="post" class=" form-style w-25 d-flex flex-column gap-2">
+    {% csrf_token %}
+    <h2 class="text-center" style="color: green">Login</h2>
+    <hr>
+    <input required class="form-control" type="email" name="username" id="username" placeholder="E-mail">
+    <input required class="form-control" type="password" name="password" placeholder="********">
+    <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER }}">
+    
+    {% if form.errors %}
+        {% for key, errors in form.errors.items %}
+            {% for error in errors %}
+                <small>
+                    <b class="text-danger">{{ error }}</b>
+                </small>
+            {% endfor %}    
+        {% endfor %}
+    {% endif %}
+    <button class="btn btn-outline-dark" type="submit" style="
+                                                                transition: 0.2s;  
+                                                                border: 1px solid darkgreen;
+                                                                background: green;
+                                                                color: #f9fafb;
+                                                                padding: 8px;
+                                                                border-radius: 8px;
+                                                                font-weight: 900;"
+                                                                                    >Login</button>
+    <small class="text-center">Don't have an account ? <a class="text-decoration-none" href="{% url 'registration' %}">Sign up</a></small>
+</form>
+<style>
+    .form-style{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -70%);
+    }
+</style>
+{% endblock %}
