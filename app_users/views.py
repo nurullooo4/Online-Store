@@ -9,7 +9,6 @@ from django.contrib.auth import get_user_model
 from app_users.forms import UserRegistrationForm
 from app_main.models import Cart
 
-
 User = get_user_model()
 
 

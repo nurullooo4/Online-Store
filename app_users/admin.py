@@ -23,7 +23,3 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ['full_name']
     save_on_top = True
     list_per_page = 3
-
-
-
-

@@ -15,18 +15,22 @@
             height: 100vh;
             margin: 0;
         }
+
         .container {
             text-align: center;
         }
+
         h1 {
             font-size: 100px;
             margin: 0;
             color: #f40622;
         }
+
         p {
             font-size: 24px;
             margin: 10px 0;
         }
+
         a {
             color: #ff001e;
             text-decoration: none;
@@ -36,6 +40,7 @@
             border-radius: 5px;
             transition: 0.3s;
         }
+
         a:hover {
             background-color: #f10000;
             color: rgba(60, 73, 76, 0.46);
@@ -43,10 +48,10 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>404</h1>
-        <p style="margin-bottom: 20px;">Sorry, the searched page has not been found!</p>
-        <a href="{% url 'home' %}" style="display: inline-block; margin-top: 20px;">Homepage</a>
-    </div>
+<div class="container">
+    <h1>404</h1>
+    <p style="margin-bottom: 20px;">Sorry, the searched page has not been found!</p>
+    <a href="{% url 'home' %}" style="display: inline-block; margin-top: 20px;">Homepage</a>
+</div>
 </body>
 </html>

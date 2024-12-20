@@ -1,5 +1,11 @@
-<footer class="py-5 bg-dark {% if  is_auth   %} position-fixed bottom-0 w-100 {% endif %}">
-	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; My Website 2024</p>
-	</div>
+<footer class="py-5 bg-dark {% if  is_auth %} position-fixed bottom-0 w-100 {% endif %}">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; My Website <span id="year"></span></p>
+    </div>
 </footer>
+
+
+<script>
+    // Dinamik ravishda yilni yangilash
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>

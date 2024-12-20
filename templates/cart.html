@@ -1,71 +1,87 @@
 {% extends 'base/base.html' %}
 {% load humanize %}
 {% block content %}
-<section class="py-5">
-	<div class="container px-4 px-lg-5 mt-5">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
             <div class="d-flex flex-column gap-3 w-100">
                 {% for cart_product in cart_products %}
                     <hr>
                     <div class="d-flex flex-row align-items-center justify-content-between gap-5 w-100">
-                         <a class="w-25" href="{% url 'detail' product_id=cart_product.product.id %}">
-                            <img class="w-100" src="{{ cart_product.product.images.all.0.image.url }}" alt="{{ cart_product.product.name }}">
-                         </a>
+                        <a class="w-25" href="{% url 'detail' product_id=cart_product.product.id %}">
+                            <img class="w-100" src="{{ cart_product.product.images.all.0.image.url }}"
+                                 alt="{{ cart_product.product.name }}">
+                        </a>
                         <div class=" w-50 d-flex flex-column gap-2">
                             <h2>{{ cart_product.product.name }}</h2>
                             <h5>{{ cart_product.product.description|truncatechars:50 }}</h5>
                             <p>Quantity: <b>{{ cart_product.quantity }}</b></p>
-                            <p>Total price : <b>${{ cart_product.product.new_price|intcomma }} x {{ cart_product.quantity }} = ${{ cart_product.total_price|intcomma }}</b> </p>
+                            <p>Total price : <b>${{ cart_product.product.new_price|intcomma }}
+                                x {{ cart_product.quantity }} = ${{ cart_product.total_price|intcomma }}</b></p>
                             <b><small class="text-mutes">({{ cart_product.created_at|timesince }}) ago</small></b>
                         </div>
                         <div class="w-25">
                             <div class=" d-flex align-items-center  gap-2 w-100 justify-content-between">
-                                            <!-- Decrement Button -->
-                                            <form class="w-50" action="{% url 'update_cart_product' cart_product_id=cart_product.id action='decrement' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-outline-secondary w-100" style="font-size: 20px">-</button>
-                                            </form>
-                                            <p class="m-0 border border-secondary py-2 px-4" style="font-size: 20px">
-                                                {{ cart_product.quantity }}
-                                            </p>
-                                            <!-- Increment Button -->
-                                            <form class="w-50" action="{% url 'update_cart_product' cart_product_id=cart_product.id action='increment' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-outline-secondary w-100" style="font-size: 20px">+</button>
-                                            </form>             
-                                        </div>
-                                        <button data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ cart_product.id }}" id="add_to_cart" type="submit" class="d-flex align-items-center justify-content-center gap-1 btn btn-outline-danger mt-2 w-100" style="font-size: 20px">
-                                            <i class="material-icons">delete</i>
-                                            Delete
-                                        </button> 
+                                <!-- Decrement Button -->
+                                <form class="w-50"
+                                      action="{% url 'update_cart_product' cart_product_id=cart_product.id action='decrement' %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary w-100"
+                                            style="font-size: 20px">-
+                                    </button>
+                                </form>
+                                <p class="m-0 border border-secondary py-2 px-4" style="font-size: 20px">
+                                    {{ cart_product.quantity }}
+                                </p>
+                                <!-- Increment Button -->
+                                <form class="w-50"
+                                      action="{% url 'update_cart_product' cart_product_id=cart_product.id action='increment' %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary w-100"
+                                            style="font-size: 20px">+
+                                    </button>
+                                </form>
+                            </div>
+                            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ cart_product.id }}"
+                                    id="add_to_cart" type="submit"
+                                    class="d-flex align-items-center justify-content-center gap-1 btn btn-outline-danger mt-2 w-100"
+                                    style="font-size: 20px">
+                                <i class="material-icons">delete</i>
+                                Delete
+                            </button>
                         </div>
                     </div>
                     <hr>
                 {% endfor %}
             </div>
         </div>
-</section>
-{% for cart_product in cart_products %}
-    <div class="modal  fade" id="staticBackdrop{{ cart_product.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel"> "{{ cart_product.product.name|truncatechars:25 }}" are you sure to delete ?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-                <form action="{% url 'cart_product_delete' cart_product_id=cart_product.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger">Delete</button>   
-                </form>
+    </section>
+    {% for cart_product in cart_products %}
+        <div class="modal  fade" id="staticBackdrop{{ cart_product.id }}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                            "{{ cart_product.product.name|truncatechars:25 }}" are you sure to delete ?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{% url 'cart_product_delete' cart_product_id=cart_product.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
-{% empty %}
-    <h1 class="text-muted text-center d-flex flex-row gap-2 align-items-center justify-content-center mt-5" style="opacity: 0.5;">
-        <i style="font-size: 64px" class="material-icons">shopping_cart</i>
-        Your cart is empty <p style="font-size: 100px">🤷‍♂️</p>
-    </h1>
-{% endfor %}    
+    {% empty %}
+        <h1 class="text-muted text-center d-flex flex-row gap-2 align-items-center justify-content-center mt-5"
+            style="opacity: 0.5;">
+            <i style="font-size: 64px" class="material-icons">shopping_cart</i>
+            Your cart is empty <p style="font-size: 100px">🤷‍♂️</p>
+        </h1>
+    {% endfor %}
 {% endblock content %}

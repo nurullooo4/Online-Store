@@ -25,4 +25,4 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('cart_product_delete/<int:cart_product_id>/', CartProductDeleteView.as_view(), name='cart_product_delete'),
     path('update_cart_product/<int:cart_product_id>/<str:action>/', update_cart_product, name='update_cart_product'),
-    ]
+]

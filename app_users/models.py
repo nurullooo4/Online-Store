@@ -46,7 +46,6 @@ class Admin(UserModel):
 
 
 class Customer(UserModel):
-
     objects = CustomerManager()
 
     class Meta:
@@ -58,5 +57,3 @@ class Customer(UserModel):
         self.is_staff = False
         self.is_superuser = False
         self.save(*args, **kwargs)
-
-

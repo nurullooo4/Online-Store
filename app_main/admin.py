@@ -34,5 +34,3 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ['body', 'owner']
     list_editable = ['body']
     list_per_page = 1
-
-

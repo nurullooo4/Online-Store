@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-
 from app_main.models import Product, Comment, Cart, Category
 from app_users.models import Customer
 
@@ -50,7 +49,7 @@ def product_detail(request, product_id):
 
     if request.method == 'POST':
         comment = request.POST.get('comment')
-        
+
         if len(comment.strip()) >= 10:
             new_comment = Comment.objects.create(
                 owner=request.user,
@@ -86,6 +85,5 @@ def add_to_cart(request, product_id):
             product = request.user.cart_set.all().get(product__id=product_id)
             product.quantity += int(quantity)
             product.save()
-
 
     return redirect('detail', product_id=product_id)

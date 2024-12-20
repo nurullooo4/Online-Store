@@ -15,4 +15,4 @@ urlpatterns = [
     # http://localhost:8000/detail/id/
     path('detail/<int:product_id>/', product_detail, name='detail'),
     path('add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
-   ]
+]
